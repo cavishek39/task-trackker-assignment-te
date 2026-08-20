@@ -55,15 +55,15 @@ export const SignUpScreen = () => {
         />
         <Input
           placeholder="Password"
-          secureTextEntry
           value={password}
           onChangeText={setPassword}
+          isPassword
         />
         <Input
           placeholder="Confirm Password"
-          secureTextEntry
           value={confirmPassword}
           onChangeText={setConfirmPassword}
+          isPassword
         />
 
         <Button 

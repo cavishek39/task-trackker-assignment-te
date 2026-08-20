@@ -50,9 +50,9 @@ export const LoginScreen = () => {
         />
         <Input
           placeholder="Password"
-          secureTextEntry
           value={password}
           onChangeText={setPassword}
+          isPassword
         />
 
         <Button 
