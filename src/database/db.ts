@@ -18,10 +18,29 @@ export const initDB = () => {
         updated_at INTEGER NOT NULL
       );
     `);
+    
+    db.executeSync(`
+      CREATE TABLE IF NOT EXISTS settings (
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL
+      );
+    `);
     console.log('Database initialized successfully');
   } catch (error) {
     console.error('Error initializing database', error);
   }
+};
+
+// --- Settings Operations ---
+export const setSetting = (key: string, value: string) => {
+  db.executeSync('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)', [key, value]);
+};
+
+export const getSetting = (key: string): string | null => {
+  const result = db.executeSync('SELECT value FROM settings WHERE key = ?', [key]);
+  const rows = Array.isArray(result.rows) ? result.rows : ((result.rows as any)?._array || []);
+  if (rows.length > 0) return rows[0].value;
+  return null;
 };
 
 // --- CRUD Operations ---

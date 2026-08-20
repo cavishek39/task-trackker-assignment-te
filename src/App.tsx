@@ -1,19 +1,29 @@
 import React, { useEffect } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { getMessaging, requestPermission, getToken } from '@react-native-firebase/messaging';
+import { getMessaging, requestPermission, getToken, onMessage } from '@react-native-firebase/messaging';
 import { store } from './features/store';
 import { RootNavigator } from './navigation/RootNavigator';
 import { NetworkIndicator } from './components/NetworkIndicator';
 import { LogBox } from 'react-native';
-import { initDB } from './database/db';
+import { initDB, getSetting } from './database/db';
 import { startSyncEngine } from './api/syncEngine';
+import { setTheme } from './features/theme/themeSlice';
 
 LogBox.ignoreLogs(['Require cycle:', 'new NativeEventEmitter']);
 
-const App = () => {
+const AppContent = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     initDB();
+
+    // Dispatch saved theme setting to Redux
+    const savedTheme = getSetting('isDarkMode');
+    if (savedTheme !== null) {
+      dispatch(setTheme(savedTheme === 'true'));
+    }
+
     const unsubscribeSync = startSyncEngine();
     
     // Bonus: Request permission for FCM
@@ -48,10 +58,18 @@ const App = () => {
   }, []);
 
   return (
+    <>
+      <RootNavigator />
+      <NetworkIndicator />
+    </>
+  );
+};
+
+const App = () => {
+  return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <RootNavigator />
-        <NetworkIndicator />
+        <AppContent />
       </SafeAreaProvider>
     </Provider>
   );
