@@ -123,7 +123,7 @@ export const TaskListScreen = () => {
       <View style={styles.header}>
         <Text style={[styles.title, { color: colors.text }]}>My Tasks</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <TouchableOpacity 
+          {/* <TouchableOpacity 
             onPress={() => {
               const demoTasks = [
                 { id: Date.now().toString() + '1', title: 'Prepare Q3 Engineering OKRs', description: 'Draft the technical goals for Q3 including the transition to React Native new architecture (Fabric) and reducing CI/CD build times by 20%.', completed: false, synced_status: false, updated_at: Date.now() + 1000 },
@@ -144,8 +144,8 @@ export const TaskListScreen = () => {
             style={{ marginRight: 24 }}
           >
             <Text style={{ fontSize: 14, color: colors.primary }}>Seed Demo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity 
+          </TouchableOpacity> */}
+          <TouchableOpacity
             onPress={() => {
               dispatch({ type: 'theme/toggleTheme' });
               const { setSetting } = require('../../database/db');

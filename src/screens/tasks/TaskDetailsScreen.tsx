@@ -160,6 +160,19 @@ export const TaskDetailsScreen = () => {
                 const newStatus = !completed;
                 setCompleted(newStatus);
                 showToast(newStatus ? 'Task completed! 🎉' : 'Task marked as incomplete');
+                
+                // Auto-save completion status immediately
+                const taskData = {
+                  id: taskId,
+                  title,
+                  description,
+                  completed: newStatus,
+                  synced_status: false,
+                  updated_at: Date.now(),
+                };
+                updateTaskInDB(taskData);
+                dispatch(updateTask(taskData));
+                import('../../api/syncEngine').then(module => module.syncData());
               }}
               style={{
                 marginTop: 24,
