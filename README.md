@@ -8,7 +8,10 @@ A cross-platform Task Management App built with React Native.
   <img src="./docs/login.jpg" width="200" />
   <img src="./docs/create-account.jpg" width="200" />
   <img src="./docs/task-list.jpg" width="200" />
+</p>
+<p align="center">
   <img src="./docs/edit-task.jpg" width="200" />
+  <img src="./docs/push-notification.jpg" width="200" />
 </p>
 
 ## Architecture Choice
