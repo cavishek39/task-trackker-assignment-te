@@ -96,6 +96,10 @@ export const TaskDetailsScreen = () => {
       // Schedule reminder on new task creation
       scheduleReminder(title).catch(console.error);
     }
+    
+    // Trigger immediate background sync
+    import('../../api/syncEngine').then(module => module.syncData());
+    
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     navigation.goBack();
   };
@@ -104,6 +108,11 @@ export const TaskDetailsScreen = () => {
     if (taskId) {
       deleteTaskFromDB(taskId);
       dispatch(deleteTask(taskId));
+      
+      // Note: Full offline deletion sync (soft deletes) requires more complex logic,
+      // but we can trigger a sync here for standard updates.
+      import('../../api/syncEngine').then(module => module.syncData());
+      
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       navigation.goBack();
     }

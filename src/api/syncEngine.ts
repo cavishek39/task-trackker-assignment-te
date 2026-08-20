@@ -18,7 +18,7 @@ export const startSyncEngine = () => {
   return unsubscribe;
 };
 
-const syncData = async () => {
+export const syncData = async () => {
   try {
     const state = store.getState();
     const user = state.auth.user;

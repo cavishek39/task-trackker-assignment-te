@@ -37,6 +37,9 @@ export const TaskListScreen = () => {
     const updatedTask = { ...task, completed: !task.completed, synced_status: false, updated_at: Date.now() };
     updateTaskInDB(updatedTask);
     dispatch(updateTask(updatedTask));
+    
+    // Trigger immediate background sync
+    import('../../api/syncEngine').then(module => module.syncData());
   };
 
   const handleLogout = () => {
