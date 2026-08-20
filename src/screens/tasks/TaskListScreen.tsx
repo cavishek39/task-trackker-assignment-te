@@ -38,6 +38,9 @@ export const TaskListScreen = () => {
     updateTaskInDB(updatedTask);
     dispatch(updateTask(updatedTask));
     
+    const { showToast } = require('../../utils/toast');
+    showToast(updatedTask.completed ? 'Task completed! 🎉' : 'Task marked as incomplete');
+    
     // Trigger immediate background sync
     import('../../api/syncEngine').then(module => module.syncData());
   };
@@ -91,7 +94,7 @@ export const TaskListScreen = () => {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity 
             onPress={() => dispatch({ type: 'theme/toggleTheme' })}
-            style={{ marginRight: 16 }}
+            style={{ marginRight: 32 }}
           >
             <Text style={{ fontSize: 20 }}>{isDarkMode ? '☀️' : '🌙'}</Text>
           </TouchableOpacity>

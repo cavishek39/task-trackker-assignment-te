@@ -25,6 +25,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import notifee, { TimestampTrigger, TriggerType } from '@notifee/react-native';
+import { showToast } from '../../utils/toast';
 
 const NOTIFICATION_TIME = 1 * 60 * 1000; // 1 minute (for testing purposes)
 const REMINDER_CHANNEL_ID = 'task-reminders';
@@ -90,9 +91,11 @@ export const TaskDetailsScreen = () => {
     if (taskId) {
       updateTaskInDB(taskData);
       dispatch(updateTask(taskData));
+      showToast('Task updated successfully');
     } else {
       insertTask(taskData);
       dispatch(addTask(taskData));
+      showToast('Task created successfully');
       // Schedule reminder on new task creation
       scheduleReminder(title).catch(console.error);
     }
@@ -108,6 +111,7 @@ export const TaskDetailsScreen = () => {
     if (taskId) {
       deleteTaskFromDB(taskId);
       dispatch(deleteTask(taskId));
+      showToast('Task deleted');
       
       // Note: Full offline deletion sync (soft deletes) requires more complex logic,
       // but we can trigger a sync here for standard updates.
@@ -152,7 +156,11 @@ export const TaskDetailsScreen = () => {
           <>
             <Button
               title={completed ? 'Mark as Incomplete' : 'Mark as Complete'}
-              onPress={() => setCompleted(!completed)}
+              onPress={() => {
+                const newStatus = !completed;
+                setCompleted(newStatus);
+                showToast(newStatus ? 'Task completed! 🎉' : 'Task marked as incomplete');
+              }}
               style={{
                 marginTop: 24,
                 backgroundColor: completed ? colors.surface : colors.primary,
