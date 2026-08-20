@@ -5,13 +5,14 @@ A cross-platform Task Management App built with React Native.
 ## Screenshots
 
 <p align="center">
-  <img src="./docs/login.jpg" width="200" />
-  <img src="./docs/create-account.jpg" width="200" />
-  <img src="./docs/task-list.jpg" width="200" />
+  <img src="./docs/login.jpg" width="150" />
+  <img src="./docs/create-account.jpg" width="150" />
+  <img src="./docs/task-list.jpg" width="150" />
 </p>
 <p align="center">
-  <img src="./docs/edit-task.jpg" width="200" />
-  <img src="./docs/push-notification.jpg" width="200" />
+  <img src="./docs/edit-task.jpg" width="150" />
+  <img src="./docs/push-notification.jpg" width="150" />
+  <img src="./docs/task-details.jpg" width="150" />
 </p>
 
 ## Architecture Choice
@@ -24,6 +25,7 @@ This project was built using **Bare React Native CLI** rather than Expo to demon
 - **Cloud Sync:** A custom Sync Engine runs in the background. It listens for network connectivity changes via `@react-native-community/netinfo` and pushes local SQLite changes to Firestore, or pulls remote changes from Firestore to SQLite.
 
 ## Libraries Used
+
 - `@react-navigation/native`
 - `@reduxjs/toolkit`
 - `@op-engineering/op-sqlite`
@@ -35,16 +37,19 @@ This project was built using **Bare React Native CLI** rather than Expo to demon
 ## How to run the app in each environment
 
 1. Install dependencies:
+
    ```bash
    yarn install
    cd ios && pod install && cd ..
    ```
 
 2. Add your Firebase config files:
+
    - Android: Place `google-services.json` in `android/app/`
    - iOS: Place `GoogleService-Info.plist` in `ios/`
 
 3. Run the environments:
+
    ```bash
    # Development
    ENVFILE=.env.dev npx react-native run-ios
@@ -60,5 +65,6 @@ This project was built using **Bare React Native CLI** rather than Expo to demon
    ```
 
 ## Known Limitations
+
 - The sync engine currently uses a "last write wins" strategy based on `updated_at`. In a highly collaborative environment, operational transform (OT) or CRDTs would be preferred.
 - Push notifications are scheduled locally via Notifee. The bonus requirement (FCM server pushes) requires a backend function (like Firebase Cloud Functions) to trigger the push, which is outside the scope of this frontend repository, but the client is ready to receive them via `@react-native-firebase/messaging`.
