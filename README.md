@@ -2,6 +2,15 @@
 
 A cross-platform Task Management App built with React Native.
 
+## Screenshots
+
+<p align="center">
+  <img src="./docs/login.jpg" width="200" />
+  <img src="./docs/task-list.jpg" width="200" />
+  <img src="./docs/edit-task.jpg" width="200" />
+  <img src="./docs/push-notification.jpg" width="200" />
+</p>
+
 ## Architecture Choice
 
 This project was built using **Bare React Native CLI** rather than Expo to demonstrate full capability in native iOS/Android configuration, which is standard for enterprise environments.
